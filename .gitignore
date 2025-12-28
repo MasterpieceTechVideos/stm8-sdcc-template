@@ -1,0 +1,15 @@
+build/*
+!build/.gitignore
+*.asm 
+*.cdb 
+*.lib 
+*.lk 
+*.lst 
+*.map
+*.rst 
+*.rel 
+*.sym 
+*.hex 
+*.ihx 
+*.s19
+stm8flash
