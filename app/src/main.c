@@ -46,7 +46,7 @@ void GPIO_Config(void){
 void ADC_Config(void){
 	ADC1_DeInit();
 	ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS, 
-             ADC1_CHANNEL_2,
+             ADC1_CHANNEL_5,
              ADC1_PRESSEL_FCPU_D18, 
              ADC1_EXTTRIG_TIM, 
              DISABLE, 
