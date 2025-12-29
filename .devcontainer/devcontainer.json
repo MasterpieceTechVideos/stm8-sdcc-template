@@ -11,8 +11,8 @@
 		"args": { } 
 	},
 	"runArgs": [
-		//"-v /dev/input:/dev/input",
-		//"--device-cgroup-rule='c *:* rmw'",
+		//"--volume=/dev:/dev",
+		//"--device-cgroup-rule=c *:* rmw",
 		"--rm"
 	],
 
@@ -28,7 +28,10 @@
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
-			"extensions": [] //["ms-python.python"]
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-themes"
+			]
 		}
 	}
 

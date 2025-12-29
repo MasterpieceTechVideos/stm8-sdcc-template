@@ -53,6 +53,7 @@ vpath %.c $(SOURCEDIR)
 FILES_TO_CLEAN= *.rel *.cdb *.map *.lk *.rst *.sym *.lst *.asm *.ihx *.s19 *.hex *.lib
 
 all: $(OUTPUTFILE)
+	@echo "\nSuccessfully made all :) \n"
 
 $(OUTPUTFILE): $(LIBRARY) $(SRCFILE)
 
@@ -68,23 +69,28 @@ $(LIBRARY): $(LIBRARY_SOURCES)
 	$(SDCC) $(MACROS) $(PROCTYPE) $(CFLAGS) $(OUTPUTTYPE) $(LDFLAGS) $< $(LIBRARY) -L $(BUILDDIR)
 
 flash: $(OUTPUTFILE)
-	$(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(OUTPUTFILE)
+	@echo "\nCreating .hex file ...\n"
+	packihx $(BUILDDIR)$(OUTPUTFILE) > $(BUILDDIR)$(OBJECT).hex
+	@echo "\nFlashing ...\n"
+	sudo $(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(BUILDDIR)$(OBJECT).hex
+	@echo "\nFlashing Successful :) \n"
 
 flash-unlock: $(OUTPUTFILE)
-	$(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(OUTPUTFILE) -u
+	@echo "\nCreating .hex file ...\n"
+	packihx $(BUILDDIR)$(OUTPUTFILE) > $(BUILDDIR)$(OBJECT).hex
+	@echo "\nUnlocking ...\n"
+	$(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(BUILDDIR)$(OBJECT).hex -u
+	@echo "\nUnlocking Successful :) \n"
 
 clean:
-	@rm $(foreach var,$(FILES_TO_CLEAN), $(BUILD_FOLDER)/$(var))
+	@echo "\nCleaning ..."
+	@rm -f $(foreach var,$(FILES_TO_CLEAN), $(BUILD_FOLDER)/$(var))
+	@echo "Cleaning Done :) \n"
 	make all
 
 clean_ms:
+	@echo "\nCleaning ..."
 	@del $(foreach var,$(FILES_TO_CLEAN), $(BUILD_FOLDER)\$(var))
+	@echo "Cleaning Done :) \n"
 	make all
-
-#packihx $(OBJECT).ihx > $(OBJECT).hex
-
-
-
-
-
 
