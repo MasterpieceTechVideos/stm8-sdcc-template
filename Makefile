@@ -1,6 +1,5 @@
 OBJECT=main
-OUTPUTFORMAT=s19   # s19, ihx
-OUTPUTFILE=$(OBJECT).$(OUTPUTFORMAT)
+OUTPUTFILE=$(OBJECT).ihx
 SRCFILE=$(OBJECT).c
 
 #Which files needed for this library:
@@ -15,7 +14,6 @@ BUILDDIR=./$(BUILD_FOLDER)/
 # in app_libs/STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc/stm8s.h
 MACROS= -D__CSMC__ -DSTM8S103 
 PROCTYPE= -lstm8 -mstm8 -o$(BUILDDIR)
-OUTPUTTYPE=--out-fmt-$(OUTPUTFORMAT)
 
 STM8FLASH=stm8flash
 PROCESSOR=stm8s103f3 # Change this to your specific device as listed when you run 'stm8flash -l'
@@ -45,15 +43,18 @@ CFLAGS+= -I$(APPROOT)/include
 
 SDARFLAGS= -rc --output=$(BUILDDIR)
 
-
+#MAKEFILE_FULL_PATH:=${abspath ${lastword ${MAKEFILE_LIST}}}
+SEPARATOR_CHRS=---------------------------------------------------------------------------------------
 
 vpath %.c $(APPROOT)/src/
 vpath %.c $(SOURCEDIR)
 
-FILES_TO_CLEAN= *.rel *.cdb *.map *.lk *.rst *.sym *.lst *.asm *.ihx *.s19 *.hex *.lib
+BUILD_FILES_TO_DELETE= *.rel *.cdb *.map *.lk *.rst *.sym *.lst *.asm *.ihx *.s19 *.hex *.lib
 
 all: $(OUTPUTFILE)
-	@echo "\nSuccessfully made all :) \n"
+	@echo ${SEPARATOR_CHRS}
+	@echo 'Successfully made all :) '
+	@echo ${SEPARATOR_CHRS}
 
 $(OUTPUTFILE): $(LIBRARY) $(SRCFILE)
 
@@ -65,32 +66,47 @@ $(LIBRARY): $(LIBRARY_SOURCES)
 %.rel: %.c
 	$(SDCC) $(MACROS) $(PROCTYPE) $(CFLAGS) -c $(LDFLAGS) $<
 
-%.$(OUTPUTFORMAT): %.c
-	$(SDCC) $(MACROS) $(PROCTYPE) $(CFLAGS) $(OUTPUTTYPE) $(LDFLAGS) $< $(LIBRARY) -L $(BUILDDIR)
+%.ihx: %.c
+	$(SDCC) $(MACROS) $(PROCTYPE) $(CFLAGS) --out-fmt-ihx $(LDFLAGS) $< $(LIBRARY) -L $(BUILDDIR)
+	$(SDCC) $(MACROS) $(PROCTYPE) $(CFLAGS) --out-fmt-s19 $(LDFLAGS) $< $(LIBRARY) -L $(BUILDDIR)
+
+create_hex:
+	@echo ${SEPARATOR_CHRS}
+	@echo 'Creating .hex file ... '
+	@echo ${SEPARATOR_CHRS}
+	packihx $(BUILDDIR)$(OUTPUTFILE) > $(BUILDDIR)$(OBJECT).hex
+	@echo ${SEPARATOR_CHRS}
 
 flash: $(OUTPUTFILE)
-	@echo "\nCreating .hex file ...\n"
-	packihx $(BUILDDIR)$(OUTPUTFILE) > $(BUILDDIR)$(OBJECT).hex
-	@echo "\nFlashing ...\n"
+	@make create_hex
+	@echo 'Flashing ... '
+	@echo ${SEPARATOR_CHRS}
 	sudo $(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(BUILDDIR)$(OBJECT).hex
-	@echo "\nFlashing Successful :) \n"
+	@echo 'Flashing Successful :) '
+	@echo ${SEPARATOR_CHRS}
 
 flash-unlock: $(OUTPUTFILE)
-	@echo "\nCreating .hex file ...\n"
-	packihx $(BUILDDIR)$(OUTPUTFILE) > $(BUILDDIR)$(OBJECT).hex
-	@echo "\nUnlocking ...\n"
+	@make create_hex
+	@echo 'Unlocking ... '
+	@echo ${SEPARATOR_CHRS}
 	$(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(BUILDDIR)$(OBJECT).hex -u
-	@echo "\nUnlocking Successful :) \n"
+	@echo ${SEPARATOR_CHRS}
+	@echo 'Unlocking Successful :) '
+	@echo ${SEPARATOR_CHRS}
+
+delete_build_files_:
+	@rm -f $(foreach var,$(BUILD_FILES_TO_DELETE), $(BUILD_FOLDER)/$(var))
+
+delete_build_files_Windows_NT:
+	@del $(foreach var,$(BUILD_FILES_TO_DELETE), $(BUILD_FOLDER)\$(var))
 
 clean:
-	@echo "\nCleaning ..."
-	@rm -f $(foreach var,$(FILES_TO_CLEAN), $(BUILD_FOLDER)/$(var))
-	@echo "Cleaning Done :) \n"
-	make all
-
-clean_ms:
-	@echo "\nCleaning ..."
-	@del $(foreach var,$(FILES_TO_CLEAN), $(BUILD_FOLDER)\$(var))
-	@echo "Cleaning Done :) \n"
+	@echo ${SEPARATOR_CHRS}
+	@echo 'Deleting build files ... '
+	@echo ${SEPARATOR_CHRS}
+	@make delete_build_files_$(OS)
+	@echo ${SEPARATOR_CHRS}
+	@echo 'Build files deleted Done :) '
+	@echo ${SEPARATOR_CHRS}
 	make all
 
