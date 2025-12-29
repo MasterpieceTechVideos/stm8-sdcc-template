@@ -1,5 +1,7 @@
 build/*
 !build/.gitignore
+.vscode/*
+!.vscode/c_cpp_properties.json
 *.asm 
 *.cdb 
 *.lib 
