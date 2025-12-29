@@ -11,9 +11,10 @@
 		"args": { } 
 	},
 	"runArgs": [
-		//"--volume=/dev:/dev",
-		//"--device-cgroup-rule=c *:* rmw",
-		"--rm"
+		"--volume=/dev:/dev",
+		"--device-cgroup-rule=c *:* rmw",
+		"--rm",
+		"--quiet"
 	],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
