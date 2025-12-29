@@ -1,5 +1,5 @@
 # app_libs
-Folder for libraries of target microcontroller. 
+Folder for libraries of target microcontroller. Contains [STM8S_StdPeriph_Lib](https://www.st.com/en/embedded-software/stsw-stm8069.html) for STM8 microcontrollers.
 
 [SDCC - Small Device C Compiler](https://sdcc.sourceforge.net/) supports various microcontrollers [such as](https://sdcc.sourceforge.net/doc/sdccman.pdf):
 
