@@ -79,6 +79,7 @@ create_hex:
 
 flash: $(OUTPUTFILE)
 	@make create_hex
+	@echo ${SEPARATOR_CHRS}
 	@echo 'Flashing ... '
 	@echo ${SEPARATOR_CHRS}
 	sudo $(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(BUILDDIR)$(OBJECT).hex
@@ -87,11 +88,12 @@ flash: $(OUTPUTFILE)
 
 flash-unlock: $(OUTPUTFILE)
 	@make create_hex
-	@echo 'Unlocking ... '
 	@echo ${SEPARATOR_CHRS}
-	$(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(BUILDDIR)$(OBJECT).hex -u
+	@echo 'Flash with Unlocking ... '
 	@echo ${SEPARATOR_CHRS}
-	@echo 'Unlocking Successful :) '
+	sudo $(STM8FLASH) -c$(DEBUGPROBE) -p$(PROCESSOR) -w $(BUILDDIR)$(OBJECT).hex -u
+	@echo ${SEPARATOR_CHRS}
+	@echo 'Flash with Unlocking Successful :) '
 	@echo ${SEPARATOR_CHRS}
 
 delete_build_files_:
@@ -106,7 +108,7 @@ clean:
 	@echo ${SEPARATOR_CHRS}
 	@make delete_build_files_$(OS)
 	@echo ${SEPARATOR_CHRS}
-	@echo 'Build files deleted Done :) '
+	@echo 'Build files deleted! '
 	@echo ${SEPARATOR_CHRS}
 	make all
 
