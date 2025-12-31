@@ -39,7 +39,8 @@ RUN sudo apt-get install --no-install-recommends -y \
     make \
     pkg-config \
     sdcc \
-    texinfo
+    texinfo \
+    tree
 
 # Create and run script to install stm8flash
 ARG GIT_URL=https://github.com/vdudouyt/stm8flash.git
