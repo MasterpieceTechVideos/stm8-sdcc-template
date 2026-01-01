@@ -5,24 +5,33 @@ Loading the program onto the microcontroller can be done using either:
 - STVP (on Windows) or 
 - [stm8flash](https://github.com/vdudouyt/stm8flash.git) (on MAC or LINUX)
 
-## References
-- [stm8s-sdcc-template](https://github.com/neosarchizo/stm8-sdcc-template.git)
-
-# Setup
-Microcontroller program can compiled either on the host computer (Windows, Linux, Mac) or using a Docker DevContainer.
-
 Compiled program can be flashed onto the microcontroller using either [stm8flash](https://github.com/vdudouyt/stm8flash.git) (on MAC or LINUX) or using the ST Visual Programmer (STVP) on Windows.
 
-A detailed workthrough can be seen on YouTube
 
-1. ## Windows
+# Requirements:
+- [Docker](https://www.docker.com/)
+- [VS Code Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- [STM8CubeMX](https://www.st.com/en/development-tools/stm8cubemx.html)
 
-    Requirements:
+- If you are using Windows
+    - [Cosmic STM8 Compiler](https://www.cosmicsoftware.com/download_stm8_free.php)
     - [ST Toolset](https://www.st.com/en/development-tools/stvd-stm8.html) includes ST Visual Develop (STVD) IDE and ST Visual Programmer (STVP)
-    - [STM8CubeMX](https://www.st.com/en/development-tools/stm8cubemx.html) (Optional)
-    - [Cosmic STM8 Compiler](https://www.cosmicsoftware.com/download_stm8_free.php) (Optional)
-    - [SDCC](https://sdcc.sourceforge.net/snap.php) - Small Device C Compiler (Optional)
-    - [Docker](https://www.docker.com/) (Optional)
-    - [VS Code Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) (Optional)
 
-2. ## Linux
+
+# Setup 
+Watch introduction of the template on [YouTube @MasterpieceTechVideos](https://www.youtube.com/playlist?list=PL0Tv1ZfP6rPxOJSiLlG01D7C6cPeXGwss)
+
+### STM8 Project Template - Program STM8 On VS Code: Part 1
+[![STM8 Project Template - Program STM8 On VS Code. Part 1 #stm #stm8s #vscode #dockercontainer #sdcc](https://img.youtube.com/vi/vv97X5S5G0s/0.jpg)](https://www.youtube.com/watch?v=vv97X5S5G0s)
+
+
+
+### STM8 Project Template - Program STM8 On VS Code: Part 2
+[![STM8 Project Template - Program STM8 On VS Code. Part 2 #stm #stm8s #vscode #dockercontainer #sdcc](https://img.youtube.com/vi/3sh7zAO3--c/0.jpg)](https://www.youtube.com/watch?v=3sh7zAO3--c)
+
+
+
+# References
+- [stm8s-sdcc-template](https://github.com/neosarchizo/stm8-sdcc-template.git)
+
+
