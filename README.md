@@ -5,7 +5,10 @@ Loading the program onto the microcontroller can be done using either:
 - STVP (on Windows) or 
 - [stm8flash](https://github.com/vdudouyt/stm8flash.git) (on MAC or LINUX)
 
-Compiled program can be flashed onto the microcontroller using either [stm8flash](https://github.com/vdudouyt/stm8flash.git) (on MAC or LINUX) or using the ST Visual Programmer (STVP) on Windows.
+
+# References
+- [neosarchizo/stm8s-sdcc-template.git](https://github.com/neosarchizo/stm8-sdcc-template.git)
+
 
 
 # Requirements:
@@ -28,10 +31,4 @@ Watch introduction of the template on [YouTube @MasterpieceTechVideos](https://w
 
 ### STM8 Project Template - Program STM8 On VS Code: Part 2
 [![STM8 Project Template - Program STM8 On VS Code. Part 2 #stm #stm8s #vscode #dockercontainer #sdcc](https://img.youtube.com/vi/3sh7zAO3--c/0.jpg)](https://www.youtube.com/watch?v=3sh7zAO3--c)
-
-
-
-# References
-- [stm8s-sdcc-template](https://github.com/neosarchizo/stm8-sdcc-template.git)
-
 
